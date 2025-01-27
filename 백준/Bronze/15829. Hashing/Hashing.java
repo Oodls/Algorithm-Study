@@ -51,14 +51,14 @@ public class Main {
         return (int) c % 96;
     }
 
-    static int hashing(int[] sequence) {
-        int currentR = 1;
-        int result = 0;
+    static long hashing(int[] sequence) {
+        long currentR = 1;
+        long result = 0;
         for (int i = 0; i < sequence.length; i++) {
             if (i > 0) {
-                currentR *= r;
+                currentR =(currentR * r) % M;
             }
-            result += sequence[i] * currentR % M;
+            result = (result + (sequence[i] * currentR) %M) %M;
         }
 
         return result;
