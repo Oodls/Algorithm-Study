@@ -89,3 +89,20 @@ class Edge {
         this.weight = weight;
     }
 }
+
+
+
+
+/*
+최소값을 가진 노드 조회용으로 PriorityQueue 를 사용하여 
+단순 배열 사용할때는 노드 전체 순회 후 최소값 가진 노드의 연결 노드를 찾아 연산하는 과정에서
+최소값 노드를 O(1)으로 찾을 수 있게 하여
+시간 복잡도를 O(V^2)에서 O(E logV) 로 단축했다.
+
+또한 처음엔 Integer.MAX_VALUE로 초기 무한대 값으로 설정했지만
+if (minCostWay[edge.node] > curWeight + edge.weight) 과정에서 
+오버 플로우가 발생해 음수값으로 변환되어 비교 연산에 문제가 생긴다.
+
+따라서 논리적으로 가능한 노드 간 최단거리 최대값 (edgeweight 최대값 * (노드 최대 개수 - 1)) 보다 10 큰
+10 * 19999 + 10  = 200000를 MAX_VALUE로 설정했다.
+*/
