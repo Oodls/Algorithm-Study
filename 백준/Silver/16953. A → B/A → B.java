@@ -6,33 +6,31 @@ class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int A = Integer.parseInt(st.nextToken());
-        int B = Integer.parseInt(st.nextToken());
-        int count = 1;
-        boolean flag = true;
+        long A = Long.parseLong(st.nextToken());
+        long B = Long.parseLong(st.nextToken());
+        
+        Queue<long[]> q = new LinkedList<>();
+        q.offer(new long[]{A, 1});
+        
+        while (!q.isEmpty()) {
+            long [] cur = q.poll();
+            long val = cur[0];
+            long cnt = cur[1];
 
-        while (A != B) {
-            count = count + 1;
-            if (A > B){
-                flag = false;
-                break;
-            } else if (B % 10 == 1) {
-                B /= 10;
-                continue;
-            } else if (B % 2 == 0) {
-                B /= 2;
-                continue;
-            } else {
-                flag = false;
-                break;
+            if ( val == B ) {
+                bw.write(String.valueOf(cnt));
+                bw.flush();
+                return;
             }
+            if ( val > B ) {
+                continue;
+            }
+
+            q.offer(new long[]{val*2, cnt+1});
+            q.offer(new long[]{val*10+1, cnt+1});
         }
 
-        if (flag) {
-            bw.write(String.valueOf(count));   
-        } else {
-            bw.write("-1");
-        }
+        bw.write("-1");
         bw.flush();
     }
 }
